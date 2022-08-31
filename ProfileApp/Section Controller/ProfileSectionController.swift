@@ -14,7 +14,7 @@ final class ProfileSectionController: ListSectionController, ASSectionController
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         let id = object?.id ?? -1
         return {
-            return TextNode(text: "\(id)")
+            return TextCellNode(text: "\(id)")
         }
     }
     

@@ -13,7 +13,7 @@
 		273052A125EFBE87004F1496 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2730529F25EFBE87004F1496 /* LaunchScreen.storyboard */; };
 		273052C025EFC079004F1496 /* NSObject+IGListDiffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052BF25EFC079004F1496 /* NSObject+IGListDiffable.swift */; };
 		273052C525EFC08F004F1496 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052C425EFC08F004F1496 /* Model.swift */; };
-		273052C825EFC0EA004F1496 /* TextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052C725EFC0EA004F1496 /* TextNode.swift */; };
+		273052C825EFC0EA004F1496 /* TextCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052C725EFC0EA004F1496 /* TextCellNode.swift */; };
 		273052D125EFC13E004F1496 /* ProfileSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052D025EFC13E004F1496 /* ProfileSectionController.swift */; };
 		27610C3B25F61A1E007C2F42 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C3A25F61A1E007C2F42 /* ContainerViewController.swift */; };
 		27610C3E25F61A2C007C2F42 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C3D25F61A2C007C2F42 /* Extensions.swift */; };
@@ -30,7 +30,8 @@
 		27610C6225F621A0007C2F42 /* PagerCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C6125F621A0007C2F42 /* PagerCellNode.swift */; };
 		27610C6525F622AD007C2F42 /* BottomPageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C6425F622AD007C2F42 /* BottomPageContainerViewController.swift */; };
 		27610C6825F623C6007C2F42 /* BottomPageContainerSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C6725F623C6007C2F42 /* BottomPageContainerSectionController.swift */; };
-		27610C6C25F6473F007C2F42 /* PagerTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C6B25F6473F007C2F42 /* PagerTextNode.swift */; };
+		27610C6C25F6473F007C2F42 /* PagerTextCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C6B25F6473F007C2F42 /* PagerTextCellNode.swift */; };
+		27A19DCC28BE5322000A379C /* PostCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A19DCB28BE5322000A379C /* PostCellNode.swift */; };
 		C48BEF9AFCBD20CBE9553937 /* Pods_ProfileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D5D9D921010E31058FBF0E /* Pods_ProfileApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +44,7 @@
 		273052A225EFBE87004F1496 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		273052BF25EFC079004F1496 /* NSObject+IGListDiffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+IGListDiffable.swift"; sourceTree = "<group>"; };
 		273052C425EFC08F004F1496 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		273052C725EFC0EA004F1496 /* TextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextNode.swift; sourceTree = "<group>"; };
+		273052C725EFC0EA004F1496 /* TextCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCellNode.swift; sourceTree = "<group>"; };
 		273052D025EFC13E004F1496 /* ProfileSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSectionController.swift; sourceTree = "<group>"; };
 		27610C3A25F61A1E007C2F42 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		27610C3D25F61A2C007C2F42 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -60,7 +61,8 @@
 		27610C6125F621A0007C2F42 /* PagerCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerCellNode.swift; sourceTree = "<group>"; };
 		27610C6425F622AD007C2F42 /* BottomPageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPageContainerViewController.swift; sourceTree = "<group>"; };
 		27610C6725F623C6007C2F42 /* BottomPageContainerSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPageContainerSectionController.swift; sourceTree = "<group>"; };
-		27610C6B25F6473F007C2F42 /* PagerTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTextNode.swift; sourceTree = "<group>"; };
+		27610C6B25F6473F007C2F42 /* PagerTextCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTextCellNode.swift; sourceTree = "<group>"; };
+		27A19DCB28BE5322000A379C /* PostCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellNode.swift; sourceTree = "<group>"; };
 		63D5D9D921010E31058FBF0E /* Pods_ProfileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProfileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF525680E4DEED988A7EB038 /* Pods-ProfileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProfileApp.release.xcconfig"; path = "Target Support Files/Pods-ProfileApp/Pods-ProfileApp.release.xcconfig"; sourceTree = "<group>"; };
 		C9CABA3EFCD80CFAC989BD8C /* Pods-ProfileApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProfileApp.debug.xcconfig"; path = "Target Support Files/Pods-ProfileApp/Pods-ProfileApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,7 +129,6 @@
 				27610C5D25F61F0C007C2F42 /* Page Controller */,
 				2730529825EFBE86004F1496 /* ProfileViewController.swift */,
 				27610C4F25F61C65007C2F42 /* HeaderViewController.swift */,
-				27610C5525F61D2E007C2F42 /* BottomViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -152,8 +153,9 @@
 		273052CA25EFC0EE004F1496 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				273052C725EFC0EA004F1496 /* TextNode.swift */,
-				27610C6B25F6473F007C2F42 /* PagerTextNode.swift */,
+				273052C725EFC0EA004F1496 /* TextCellNode.swift */,
+				27A19DCB28BE5322000A379C /* PostCellNode.swift */,
+				27610C6B25F6473F007C2F42 /* PagerTextCellNode.swift */,
 				27610C6125F621A0007C2F42 /* PagerCellNode.swift */,
 			);
 			path = Nodes;
@@ -186,8 +188,9 @@
 		27610C5D25F61F0C007C2F42 /* Page Controller */ = {
 			isa = PBXGroup;
 			children = (
-				27610C5E25F61F2E007C2F42 /* BottomPageViewController.swift */,
 				27610C6425F622AD007C2F42 /* BottomPageContainerViewController.swift */,
+				27610C5E25F61F2E007C2F42 /* BottomPageViewController.swift */,
+				27610C5525F61D2E007C2F42 /* BottomViewController.swift */,
 			);
 			path = "Page Controller";
 			sourceTree = "<group>";
@@ -323,9 +326,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				27610C5325F61CF8007C2F42 /* HeaderSectionController.swift in Sources */,
-				273052C825EFC0EA004F1496 /* TextNode.swift in Sources */,
+				273052C825EFC0EA004F1496 /* TextCellNode.swift in Sources */,
 				27610C5025F61C65007C2F42 /* HeaderViewController.swift in Sources */,
-				27610C6C25F6473F007C2F42 /* PagerTextNode.swift in Sources */,
+				27610C6C25F6473F007C2F42 /* PagerTextCellNode.swift in Sources */,
 				273052C025EFC079004F1496 /* NSObject+IGListDiffable.swift in Sources */,
 				27610C4825F61AEC007C2F42 /* PagerAwareProtocol.swift in Sources */,
 				27610C4225F61A88007C2F42 /* PannableViewsProtocol.swift in Sources */,
@@ -342,6 +345,7 @@
 				27610C4B25F61AEC007C2F42 /* TPProgressDelegate.swift in Sources */,
 				27610C4925F61AEC007C2F42 /* BottomPageDelegate.swift in Sources */,
 				2730529525EFBE86004F1496 /* AppDelegate.swift in Sources */,
+				27A19DCC28BE5322000A379C /* PostCellNode.swift in Sources */,
 				273052D125EFC13E004F1496 /* ProfileSectionController.swift in Sources */,
 				273052C525EFC08F004F1496 /* Model.swift in Sources */,
 			);
@@ -484,6 +488,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LF6S2R3BD;
 				INFOPLIST_FILE = ProfileApp/App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -504,6 +509,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LF6S2R3BD;
 				INFOPLIST_FILE = ProfileApp/App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -14,7 +14,7 @@ final class BottomPageContainerSectionController: ListSectionController, ASSecti
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         let id = object?.id ?? -1
         return {
-            return PagerTextNode(text: "\(id)")
+            return PagerTextCellNode(text: "\(id)")
         }
     }
     
