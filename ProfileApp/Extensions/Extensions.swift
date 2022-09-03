@@ -127,3 +127,12 @@ internal extension UIView{
         trailing.isActive = true
     }
 }
+
+public extension UIColor {
+    var random: UIColor {
+        let randomRed = CGFloat(arc4random_uniform(256))
+        let randomGreen = CGFloat(arc4random_uniform(256))
+        let randomBlue = CGFloat(arc4random_uniform(256))
+        return UIColor(red: randomRed/255, green: randomGreen/255, blue: randomBlue/255, alpha: 1.0)
+    }
+}

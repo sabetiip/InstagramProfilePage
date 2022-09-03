@@ -10,13 +10,14 @@ import AsyncDisplayKit
 class HeaderViewController: ASDKViewController<ASCollectionNode> {
     
     let flowLayout = UICollectionViewFlowLayout()
-    var objects: [ProfileCellModel] = []
+    var object: HeaderSectionModel
     
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    override init() {
+    init(object: HeaderSectionModel) {
+        self.object = object
         super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
     }
     
@@ -27,20 +28,9 @@ class HeaderViewController: ASDKViewController<ASCollectionNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        insertItems()
-        
+                
         adapter.setASDKCollectionNode(node)
         adapter.dataSource = self
-    }
-    
-    //MARK: - Test
-    private func insertItems() {
-        objects.append(ProfileCellModel())
-        objects.append(ProfileCellModel())
-        objects.append(ProfileCellModel())
-        
-        adapter.performUpdates(animated: false)
     }
 }
 
@@ -51,7 +41,7 @@ extension HeaderViewController: ListAdapterDataSource {
     }
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return objects
+        return [object]
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

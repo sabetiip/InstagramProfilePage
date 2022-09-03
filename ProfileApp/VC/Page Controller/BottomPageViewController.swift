@@ -24,8 +24,10 @@ class BottomPageViewController: ASDKViewController<ASPagerNode>, PagerAwareProto
         return vcs[self.node.currentPageIndex].node.view
     }
 
+    let vcCount: Int
     
-    override init() {
+    init(vcCount: Int) {
+        self.vcCount = vcCount
         super.init(node: ASPagerNode())
     }
     
@@ -40,29 +42,40 @@ class BottomPageViewController: ASDKViewController<ASPagerNode>, PagerAwareProto
         for _ in 1 ... 5 {
             posts.append(PostModel())
         }
-        var vc = BottomViewController(objects: posts)
+        var vc = BottomViewController(object: PostSectionModel(posts: posts))
         vcList.append(vc)
         
         posts = [PostModel]()
         for _ in 1 ... 20 {
             posts.append(PostModel())
         }
-        vc = BottomViewController(objects: posts)
+        vc = BottomViewController(object: PostSectionModel(posts: posts))
         vcList.append(vc)
         
         posts = [PostModel]()
         for _ in 1 ... 10 {
             posts.append(PostModel())
         }
-        vc = BottomViewController(objects: posts)
+        vc = BottomViewController(object: PostSectionModel(posts: posts))
         vcList.append(vc)
         
         posts = [PostModel]()
         for _ in 1 ... 30 {
             posts.append(PostModel())
         }
-        vc = BottomViewController(objects: posts)
+        vc = BottomViewController(object: PostSectionModel(posts: posts))
         vcList.append(vc)
+        
+        if vcCount > vcList.count {
+            for _ in 0..<(vcCount - vcList.count) {
+                posts = [PostModel]()
+                for _ in 1 ... 50 {
+                    posts.append(PostModel())
+                }
+                vc = BottomViewController(object: PostSectionModel(posts: posts))
+                vcList.append(vc)
+            }
+        }
         
         return vcList
     }()
@@ -86,5 +99,10 @@ extension BottomPageViewController: ASPagerDelegate, ASPagerDataSource {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         pageDelegate?.tp_pageViewController(vcs[self.node.currentPageIndex], didSelectPageAt: self.node.currentPageIndex)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        pageDelegate?.tp_pageViewController(vcs[self.node.currentPageIndex], didSelectPageAt: self.node.currentPageIndex)
+
     }
 }

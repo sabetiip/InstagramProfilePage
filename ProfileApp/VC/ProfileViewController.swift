@@ -17,18 +17,17 @@ class ProfileViewController: ASDKViewController<ASDisplayNode> {
         
         self.tp_configure(with: self, delegate: self)
     }
-    
 }
 
 //MARK: - TPDataSource
 extension ProfileViewController: TPDataSource {
     func headerViewController() -> UIViewController {
-        headerVC = HeaderViewController()
+        headerVC = HeaderViewController(object: HeaderSectionModel(headers: [HeaderModel(), HeaderModel(), HeaderModel()]))
         return headerVC!
     }
     
     func bottomViewController() -> UIViewController & PagerAwareProtocol {
-        return BottomPageContainerViewController()
+        return BottomPageContainerViewController(object: PageSectionModel(pages: [PageModel(), PageModel(), PageModel(), PageModel(), PageModel()]))
     }
     
     func minHeaderHeight() -> CGFloat {
@@ -45,6 +44,4 @@ extension ProfileViewController: TPProgressDelegate {
     func tp_scrollViewDidLoad(_ scrollView: UIScrollView) {
         
     }
-    
-    
 }

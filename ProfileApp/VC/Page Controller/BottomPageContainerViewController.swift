@@ -10,11 +10,13 @@ import AsyncDisplayKit
 class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, PagerAwareProtocol {
     
     let flowLayout = UICollectionViewFlowLayout()
-    var objects: [HeaderPostsModel] = []
+    var object: PageSectionModel
     
     let collectionNode: ASCollectionNode!
     let pagerContainer = UIView()
     
+    var pager: BottomPageViewController?
+
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
@@ -33,9 +35,8 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
         return pager?.bottomScrollView ?? UIScrollView()
     }
     
-    var pager: BottomPageViewController?
-    
-    override init() {
+    init(object: PageSectionModel) {
+        self.object = object
         self.collectionNode = ASCollectionNode(collectionViewLayout: flowLayout)
         super.init()
     }
@@ -48,8 +49,6 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
         super.viewDidLoad()
         view.backgroundColor = .white
         flowLayout.scrollDirection = .horizontal
-        
-        insertItems()
         
         adapter.setASDKCollectionNode(collectionNode)
         adapter.dataSource = self
@@ -74,7 +73,7 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
         ])
 
         // add child view controller view to container
-        let controller = BottomPageViewController()
+        let controller = BottomPageViewController(vcCount: self.object.pages.count)
         self.add(controller, to: pagerContainer)
         controller.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -87,26 +86,20 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
         pager = controller
         pager!.pageDelegate = pageDelegate
     }
-    
-    //MARK: - Test
-    private func insertItems() {
-        objects.append(HeaderPostsModel())
-        objects.append(HeaderPostsModel())
-        objects.append(HeaderPostsModel())
-        objects.append(HeaderPostsModel())
-        
-        adapter.performUpdates(animated: false)
-    }
 }
 
 //MARK: - ListAdapterDataSource
 extension BottomPageContainerViewController: ListAdapterDataSource {
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return BottomPageContainerSectionController()
+        let sectionController = BottomPageContainerSectionController()
+        sectionController.selectItem = { index in
+            self.pager?.node.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
+        }
+        return sectionController
     }
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return objects
+        return [object]
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

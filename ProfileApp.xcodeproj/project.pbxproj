@@ -14,7 +14,6 @@
 		273052C025EFC079004F1496 /* NSObject+IGListDiffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052BF25EFC079004F1496 /* NSObject+IGListDiffable.swift */; };
 		273052C525EFC08F004F1496 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052C425EFC08F004F1496 /* Model.swift */; };
 		273052C825EFC0EA004F1496 /* TextCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052C725EFC0EA004F1496 /* TextCellNode.swift */; };
-		273052D125EFC13E004F1496 /* ProfileSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273052D025EFC13E004F1496 /* ProfileSectionController.swift */; };
 		27610C3B25F61A1E007C2F42 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C3A25F61A1E007C2F42 /* ContainerViewController.swift */; };
 		27610C3E25F61A2C007C2F42 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C3D25F61A2C007C2F42 /* Extensions.swift */; };
 		27610C4225F61A88007C2F42 /* PannableViewsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27610C4125F61A88007C2F42 /* PannableViewsProtocol.swift */; };
@@ -45,7 +44,6 @@
 		273052BF25EFC079004F1496 /* NSObject+IGListDiffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+IGListDiffable.swift"; sourceTree = "<group>"; };
 		273052C425EFC08F004F1496 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		273052C725EFC0EA004F1496 /* TextCellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCellNode.swift; sourceTree = "<group>"; };
-		273052D025EFC13E004F1496 /* ProfileSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSectionController.swift; sourceTree = "<group>"; };
 		27610C3A25F61A1E007C2F42 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		27610C3D25F61A2C007C2F42 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		27610C4125F61A88007C2F42 /* PannableViewsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannableViewsProtocol.swift; sourceTree = "<group>"; };
@@ -126,9 +124,9 @@
 		273052B625EFC033004F1496 /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				27610C5D25F61F0C007C2F42 /* Page Controller */,
 				2730529825EFBE86004F1496 /* ProfileViewController.swift */,
 				27610C4F25F61C65007C2F42 /* HeaderViewController.swift */,
+				27610C5D25F61F0C007C2F42 /* Page Controller */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -154,9 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				273052C725EFC0EA004F1496 /* TextCellNode.swift */,
-				27A19DCB28BE5322000A379C /* PostCellNode.swift */,
 				27610C6B25F6473F007C2F42 /* PagerTextCellNode.swift */,
 				27610C6125F621A0007C2F42 /* PagerCellNode.swift */,
+				27A19DCB28BE5322000A379C /* PostCellNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -164,10 +162,9 @@
 		273052CF25EFC127004F1496 /* Section Controller */ = {
 			isa = PBXGroup;
 			children = (
-				273052D025EFC13E004F1496 /* ProfileSectionController.swift */,
 				27610C5225F61CF8007C2F42 /* HeaderSectionController.swift */,
-				27610C5825F61D57007C2F42 /* BottomSectionController.swift */,
 				27610C6725F623C6007C2F42 /* BottomPageContainerSectionController.swift */,
+				27610C5825F61D57007C2F42 /* BottomSectionController.swift */,
 			);
 			path = "Section Controller";
 			sourceTree = "<group>";
@@ -346,7 +343,6 @@
 				27610C4925F61AEC007C2F42 /* BottomPageDelegate.swift in Sources */,
 				2730529525EFBE86004F1496 /* AppDelegate.swift in Sources */,
 				27A19DCC28BE5322000A379C /* PostCellNode.swift in Sources */,
-				273052D125EFC13E004F1496 /* ProfileSectionController.swift in Sources */,
 				273052C525EFC08F004F1496 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

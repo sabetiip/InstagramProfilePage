@@ -10,15 +10,15 @@ import AsyncDisplayKit
 class BottomViewController: ASDKViewController<ASCollectionNode> {
     
     let flowLayout = UICollectionViewFlowLayout()
-    var objects: [PostModel] = []
+    var object: PostSectionModel
     
     lazy var adapter: ListAdapter = {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     }()
     
-    init(objects: [PostModel]) {
+    init(object: PostSectionModel) {
+        self.object = object
         super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
-        self.objects = objects
     }
     
     required init?(coder: NSCoder) {
@@ -41,7 +41,7 @@ extension BottomViewController: ListAdapterDataSource {
     }
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return objects
+        return [object]
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
