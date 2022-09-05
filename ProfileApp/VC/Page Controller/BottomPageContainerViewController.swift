@@ -1,26 +1,8 @@
-//
-//  BottomPageContainerViewController.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
 class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, PagerAwareProtocol {
     
-    let flowLayout = UICollectionViewFlowLayout()
-    var object: PageSectionModel
-    
-    let collectionNode: ASCollectionNode!
-    let pagerContainer = UIView()
-    
-    var pager: BottomPageViewController?
-
-    lazy var adapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
-    }()
-    
+    //MARK: - PagerAwareProtocol
     weak var pageDelegate: BottomPageDelegate?
     
     var currentViewController: UIViewController?{
@@ -35,8 +17,18 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
         return pager?.bottomScrollView ?? UIScrollView()
     }
     
-    init(object: PageSectionModel) {
-        self.object = object
+    //MARK: -
+    let bottomViewDataModel: BottomViewDataModel
+    
+    let collectionNode: ASCollectionNode
+    let flowLayout = UICollectionViewFlowLayout()
+    let pagerContainer = UIView()
+    var pager: BottomPageViewController?
+
+    lazy var adapter: ListAdapter = .init(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+    
+    init(bottomViewDataModel: BottomViewDataModel) {
+        self.bottomViewDataModel = bottomViewDataModel
         self.collectionNode = ASCollectionNode(collectionViewLayout: flowLayout)
         super.init()
     }
@@ -59,7 +51,7 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
             collectionNode.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionNode.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionNode.view.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionNode.view.heightAnchor.constraint(equalToConstant: 60),
+            collectionNode.view.heightAnchor.constraint(equalToConstant: pagerCollectionHeight),
         ])
         
         // add container
@@ -73,7 +65,7 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
         ])
 
         // add child view controller view to container
-        let controller = BottomPageViewController(vcCount: self.object.pages.count)
+        let controller = BottomPageViewController(postSectionModels: self.bottomViewDataModel.postSectionModels)
         self.add(controller, to: pagerContainer)
         controller.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -91,15 +83,14 @@ class BottomPageContainerViewController: ASDKViewController<ASDisplayNode>, Page
 //MARK: - ListAdapterDataSource
 extension BottomPageContainerViewController: ListAdapterDataSource {
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        let sectionController = BottomPageContainerSectionController()
-        sectionController.selectItem = { index in
+        let sectionController = BottomPageContainerSectionController(selectPage: { index in
             self.pager?.node.scrollToItem(at: IndexPath(item: index, section: 0), at: .centeredHorizontally, animated: true)
-        }
+        })
         return sectionController
     }
 
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return [object]
+        return [self.bottomViewDataModel.pageSectionModel]
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

@@ -1,33 +1,27 @@
-//
-//  BottomPageViewController.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
 class BottomPageViewController: ASDKViewController<ASPagerNode>, PagerAwareProtocol {
     
-    //MARK: PagerAwareProtocol
+    //MARK: - PagerAwareProtocol
     var pageDelegate: BottomPageDelegate?
     
     var currentViewController: UIViewController? {
-        return vcs.first
+        return bottomVCs.first
     }
     
     var pagerTabHeight: CGFloat?{
-        return 60
+        return pagerCollectionHeight
     }
     
     var bottomScrollView: UIScrollView {
-        return vcs[self.node.currentPageIndex].node.view
+        return bottomVCs[self.node.currentPageIndex].node.view
     }
 
-    let vcCount: Int
+    //MARK: -
+    let postSectionModels: [PostSectionModel]
     
-    init(vcCount: Int) {
-        self.vcCount = vcCount
+    init(postSectionModels: [PostSectionModel]) {
+        self.postSectionModels = postSectionModels
         super.init(node: ASPagerNode())
     }
     
@@ -35,49 +29,8 @@ class BottomPageViewController: ASDKViewController<ASPagerNode>, PagerAwareProto
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate lazy var vcs: [ASDKViewController<ASCollectionNode>] = {
-        var vcList: [ASDKViewController<ASCollectionNode>] = []
-        
-        var posts = [PostModel]()
-        for _ in 1 ... 5 {
-            posts.append(PostModel())
-        }
-        var vc = BottomViewController(object: PostSectionModel(posts: posts))
-        vcList.append(vc)
-        
-        posts = [PostModel]()
-        for _ in 1 ... 20 {
-            posts.append(PostModel())
-        }
-        vc = BottomViewController(object: PostSectionModel(posts: posts))
-        vcList.append(vc)
-        
-        posts = [PostModel]()
-        for _ in 1 ... 10 {
-            posts.append(PostModel())
-        }
-        vc = BottomViewController(object: PostSectionModel(posts: posts))
-        vcList.append(vc)
-        
-        posts = [PostModel]()
-        for _ in 1 ... 30 {
-            posts.append(PostModel())
-        }
-        vc = BottomViewController(object: PostSectionModel(posts: posts))
-        vcList.append(vc)
-        
-        if vcCount > vcList.count {
-            for _ in 0..<(vcCount - vcList.count) {
-                posts = [PostModel]()
-                for _ in 1 ... 50 {
-                    posts.append(PostModel())
-                }
-                vc = BottomViewController(object: PostSectionModel(posts: posts))
-                vcList.append(vc)
-            }
-        }
-        
-        return vcList
+    fileprivate lazy var bottomVCs: [ASDKViewController<ASCollectionNode>] = {
+        return self.postSectionModels.map({ BottomViewController(object: $0) })
     }()
     
     override func viewDidLoad() {
@@ -88,21 +41,22 @@ class BottomPageViewController: ASDKViewController<ASPagerNode>, PagerAwareProto
     }
 }
 
+//MARK: - ASPagerDelegate, ASPagerDataSource
 extension BottomPageViewController: ASPagerDelegate, ASPagerDataSource {
     func numberOfPages(in pagerNode: ASPagerNode) -> Int {
-        return vcs.count
+        return bottomVCs.count
     }
     
     func pagerNode(_ pagerNode: ASPagerNode, nodeAt index: Int) -> ASCellNode {
-        return PagerCellNode(vc: vcs[index])
+        return PagerCellNode(vc: bottomVCs[index])
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        pageDelegate?.tp_pageViewController(vcs[self.node.currentPageIndex], didSelectPageAt: self.node.currentPageIndex)
+        pageDelegate?.tp_pageViewController(bottomVCs[self.node.currentPageIndex], didSelectPageAt: self.node.currentPageIndex)
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        pageDelegate?.tp_pageViewController(vcs[self.node.currentPageIndex], didSelectPageAt: self.node.currentPageIndex)
+        pageDelegate?.tp_pageViewController(bottomVCs[self.node.currentPageIndex], didSelectPageAt: self.node.currentPageIndex)
 
     }
 }

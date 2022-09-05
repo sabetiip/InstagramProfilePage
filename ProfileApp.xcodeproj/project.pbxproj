@@ -103,8 +103,8 @@
 				273052AE25EFBFAD004F1496 /* App */,
 				273052BE25EFC079004F1496 /* Extensions */,
 				273052C325EFC08F004F1496 /* Model */,
-				273052CA25EFC0EE004F1496 /* Nodes */,
-				273052CF25EFC127004F1496 /* Section Controller */,
+				273052CA25EFC0EE004F1496 /* Cell Nodes */,
+				273052CF25EFC127004F1496 /* Section Controllers */,
 				273052B625EFC033004F1496 /* VC */,
 			);
 			path = ProfileApp;
@@ -148,7 +148,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		273052CA25EFC0EE004F1496 /* Nodes */ = {
+		273052CA25EFC0EE004F1496 /* Cell Nodes */ = {
 			isa = PBXGroup;
 			children = (
 				273052C725EFC0EA004F1496 /* TextCellNode.swift */,
@@ -156,17 +156,17 @@
 				27610C6125F621A0007C2F42 /* PagerCellNode.swift */,
 				27A19DCB28BE5322000A379C /* PostCellNode.swift */,
 			);
-			path = Nodes;
+			path = "Cell Nodes";
 			sourceTree = "<group>";
 		};
-		273052CF25EFC127004F1496 /* Section Controller */ = {
+		273052CF25EFC127004F1496 /* Section Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				27610C5225F61CF8007C2F42 /* HeaderSectionController.swift */,
 				27610C6725F623C6007C2F42 /* BottomPageContainerSectionController.swift */,
 				27610C5825F61D57007C2F42 /* BottomSectionController.swift */,
 			);
-			path = "Section Controller";
+			path = "Section Controllers";
 			sourceTree = "<group>";
 		};
 		27610C4025F61A7A007C2F42 /* Base */ = {

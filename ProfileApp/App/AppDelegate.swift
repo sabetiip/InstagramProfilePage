@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/3/21.
-//
-
 import UIKit
 
 @main

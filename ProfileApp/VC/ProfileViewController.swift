@@ -1,16 +1,7 @@
-//
-//  PofileViewController.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/3/21.
-//
-
 import AsyncDisplayKit
 
 class ProfileViewController: ASDKViewController<ASDisplayNode> {
-    
-    var headerVC: HeaderViewController?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -22,12 +13,11 @@ class ProfileViewController: ASDKViewController<ASDisplayNode> {
 //MARK: - TPDataSource
 extension ProfileViewController: TPDataSource {
     func headerViewController() -> UIViewController {
-        headerVC = HeaderViewController(object: HeaderSectionModel(headers: [HeaderModel(), HeaderModel(), HeaderModel()]))
-        return headerVC!
+        return HeaderViewController(object: StaticData.headerDataModel)
     }
     
     func bottomViewController() -> UIViewController & PagerAwareProtocol {
-        return BottomPageContainerViewController(object: PageSectionModel(pages: [PageModel(), PageModel(), PageModel(), PageModel(), PageModel()]))
+        return BottomPageContainerViewController(bottomViewDataModel: StaticData.bottomDataModel)
     }
     
     func minHeaderHeight() -> CGFloat {

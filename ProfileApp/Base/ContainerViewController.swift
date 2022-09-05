@@ -21,18 +21,12 @@ class ContainerViewController : UIViewController, UIScrollViewDelegate {
         }
     }
 
-    private var pageHasEnoughSpace = false
     private var currentIndex: Int = 0
-    private var headerHeightConstraint: NSLayoutConstraint!
+    private var headerHeightConstraint: NSLayoutConstraint?
 
     private var pagerTabHeight: CGFloat{
         return bottomVC.pagerTabHeight ?? 44
     }
-    
-    private var bottomScrollView: UIScrollView {
-        return bottomVC.bottomScrollView
-    }
-    
     private var contentOffsets: [Int: CGFloat] = [:]
     
     weak var dataSource: TPDataSource!
@@ -94,13 +88,16 @@ class ContainerViewController : UIViewController, UIScrollViewDelegate {
         ///Add header view controller
         headerVC = dataSource.headerViewController()
         add(headerVC, to: containerScrollView)
-        (headerVC.panView() as? UIScrollView)?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: .new, context: nil)
+        if let scrollView = headerVC.panView() as? UIScrollView{
+            scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentSize), options: .new, context: nil)
+        }
         headerView.constraint(to: containerScrollView, attribute: .leading, secondAttribute: .leading)
         headerView.constraint(to: containerScrollView, attribute: .trailing, secondAttribute: .trailing)
         headerView.constraint(to: containerScrollView, attribute: .top, secondAttribute: .top)
         headerView.constraint(to: containerScrollView, attribute: .width, secondAttribute: .width)
-        headerHeightConstraint = headerView.constraint(headerView.heightAnchor, constant: 0)
-
+        headerHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: 0.0)
+        headerHeightConstraint?.isActive = true
+        
         ///Add bottom view controller
         bottomVC = dataSource.bottomViewController()
         bottomVC.pageDelegate = self
@@ -113,9 +110,7 @@ class ContainerViewController : UIViewController, UIScrollViewDelegate {
         bottomView.constraint(to: containerScrollView, attribute: .bottom, secondAttribute: .bottom)
         bottomView.constraint(to: headerView, attribute: .top, secondAttribute: .bottom)
         bottomView.constraint(to: containerScrollView, attribute: .width, secondAttribute: .width)
-        bottomView.constraint(to: containerScrollView,
-                              attribute: .height,
-                              secondAttribute: .height)
+        bottomView.constraint(to: containerScrollView, attribute: .height, secondAttribute: .height)
         
         ///let know others scroll view configuration is done
         delegate?.tp_scrollViewDidLoad(overlayScrollView)
@@ -127,9 +122,21 @@ class ContainerViewController : UIViewController, UIScrollViewDelegate {
     
     private func getContentSize(for bottomView: UIView) -> CGSize{
         if let scroll = bottomView as? UIScrollView{
-            let bottomHeight = max(scroll.contentSize.height, self.view.frame.height - dataSource.minHeaderHeight() - pagerTabHeight - bottomInset)
-            return CGSize(width: scroll.contentSize.width,
-                          height: bottomHeight + headerView.frame.height + pagerTabHeight + bottomInset)
+            let collectionContentSize = scroll.contentSize
+            let topContentSize = pagerTabHeight + headerView.frame.height
+            let viewContentSize = collectionContentSize.height + topContentSize
+            
+            if viewContentSize > containerScrollView.contentSize.height{
+                return CGSize(width: scroll.contentSize.width,
+                              height: viewContentSize)
+            }else{
+                containerScrollView.contentSize = CGSize(width: scroll.contentSize.width,
+                                                         height: view.frame.height)
+                return CGSize(width: scroll.contentSize.width,
+                              height: viewContentSize)
+            }
+            
+            
         }else{
             let bottomHeight = self.view.frame.height - dataSource.minHeaderHeight() - pagerTabHeight
             return CGSize(width: bottomView.frame.width,
@@ -143,48 +150,32 @@ class ContainerViewController : UIViewController, UIScrollViewDelegate {
             if let scroll = self.panViews[currentIndex] as? UIScrollView, obj == scroll {
                 updateOverlayScrollContentSize(with: scroll)
             } else {
-                print((change![NSKeyValueChangeKey.newKey] as! CGSize).height)
-                headerHeightConstraint.constant = (change![NSKeyValueChangeKey.newKey] as! CGSize).height + topInset
+                headerHeightConstraint?.constant = ((change?[.newKey] as? CGSize)?.height ?? 0.0) + topInset
             }
         }
     }
     
+    
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let valueForScrollToBottom = containerScrollView.frame.height - (bottomScrollView.contentSize.height + pagerTabHeight)
-        if containerScrollView.contentOffset.y == (headerView.frame.height - topInset),
-           overlayScrollView.contentOffset.y != containerScrollView.contentOffset.y,
-           valueForScrollToBottom >= 0 {
-            self.containerScrollView.setContentOffset(CGPoint(x: self.containerScrollView.contentOffset.x, y: 0), animated: true)
+        contentOffsets[currentIndex] = scrollView.contentOffset.y
+        
+        let topHeight = bottomView.frame.minY - dataSource.minHeaderHeight()
+        if scrollView.contentOffset.y < topHeight{
+            self.containerScrollView.contentOffset.y = scrollView.contentOffset.y
             self.panViews.forEach({ (arg0) in
                 let (_, value) = arg0
                 (value as? UIScrollView)?.contentOffset.y = 0
             })
             contentOffsets.removeAll()
-            pageHasEnoughSpace = true
-            return
+        }else{
+            self.containerScrollView.contentOffset.y = topHeight
+            (self.panViews[currentIndex] as? UIScrollView)?.contentOffset.y = scrollView.contentOffset.y - self.containerScrollView.contentOffset.y
+            
         }
         
-        if !pageHasEnoughSpace {
-            let hasSpace = bottomScrollView.frame.height - (bottomScrollView.contentSize.height + bottomView.frame.minY + pagerTabHeight)
-            if hasSpace < 0 {
-                contentOffsets[currentIndex] = scrollView.contentOffset.y
-                let topHeight = bottomView.frame.minY - dataSource.minHeaderHeight()
-                if scrollView.contentOffset.y < topHeight{
-                    self.containerScrollView.contentOffset.y = scrollView.contentOffset.y
-                    self.panViews.forEach({ (arg0) in
-                        let (_, value) = arg0
-                        (value as? UIScrollView)?.contentOffset.y = 0
-                    })
-                    contentOffsets.removeAll()
-                }else{
-                    self.containerScrollView.contentOffset.y = topHeight
-                    (self.panViews[currentIndex] as? UIScrollView)?.contentOffset.y = scrollView.contentOffset.y - self.containerScrollView.contentOffset.y
-                }
-                
-                let progress = self.containerScrollView.contentOffset.y / topHeight
-                self.delegate?.tp_scrollView(self.containerScrollView, didUpdate: progress)
-            }
-        }
+        let progress = self.containerScrollView.contentOffset.y / topHeight
+        self.delegate?.tp_scrollView(self.containerScrollView, didUpdate: progress)
     }
 }
 
@@ -192,7 +183,6 @@ class ContainerViewController : UIViewController, UIScrollViewDelegate {
 extension ContainerViewController : BottomPageDelegate {
 
     func tp_pageViewController(_ currentViewController: UIViewController?, didSelectPageAt index: Int) {
-        pageHasEnoughSpace = false
         currentIndex = index
 
         if let offset = contentOffsets[index]{

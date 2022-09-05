@@ -1,24 +1,14 @@
-//
-//  BottomViewController.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
 class BottomViewController: ASDKViewController<ASCollectionNode> {
+        
+    lazy var adapter: ListAdapter = .init(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     
-    let flowLayout = UICollectionViewFlowLayout()
-    var object: PostSectionModel
-    
-    lazy var adapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
-    }()
+    let object: PostSectionModel
     
     init(object: PostSectionModel) {
         self.object = object
-        super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
+        super.init(node: ASCollectionNode(collectionViewLayout: UICollectionViewFlowLayout()))
     }
     
     required init?(coder: NSCoder) {

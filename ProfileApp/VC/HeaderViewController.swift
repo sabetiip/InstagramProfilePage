@@ -1,24 +1,15 @@
 //
-//  HeaderViewController.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
 class HeaderViewController: ASDKViewController<ASCollectionNode> {
     
-    let flowLayout = UICollectionViewFlowLayout()
-    var object: HeaderSectionModel
+    let object: HeaderSectionModel
     
-    lazy var adapter: ListAdapter = {
-        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
-    }()
+    lazy var adapter: ListAdapter = .init(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 0)
     
     init(object: HeaderSectionModel) {
         self.object = object
-        super.init(node: ASCollectionNode(collectionViewLayout: flowLayout))
+        super.init(node: ASCollectionNode(collectionViewLayout: UICollectionViewFlowLayout()))
     }
     
     required init?(coder: NSCoder) {

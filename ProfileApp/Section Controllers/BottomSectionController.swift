@@ -1,29 +1,28 @@
-//
-//  HeaderSectionController.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
-final class HeaderSectionController: ListSectionController, ASSectionController {
+final class BottomSectionController: ListSectionController, ASSectionController {
     
-    var object: HeaderSectionModel?
+    var object: PostSectionModel?
+    
+    override init() {
+        super.init()
+        self.minimumInteritemSpacing = 1.0
+        self.minimumLineSpacing = 1.0
+    }
     
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
-        let id = object?.headers[index].id ?? -1
+        let id = object?.posts[index].id ?? -1
         return {
-            return TextCellNode(text: "\(id)")
+            return PostCellNode(text: "\(id)")
         }
     }
     
     override func numberOfItems() -> Int {
-        return object?.headers.count ?? 0
+        return object?.posts.count ?? 1
     }
     
     override func didUpdate(to object: Any) {
-        self.object = object as? HeaderSectionModel
+        self.object = object as? PostSectionModel
     }
     
     override func didSelectItem(at index: Int) {}
@@ -38,8 +37,10 @@ final class HeaderSectionController: ListSectionController, ASSectionController 
     
     func sizeRangeForItem(at index: Int) -> ASSizeRange {
         let containerWidth = self.collectionContext?.containerSize.width ?? 0.0
-        let size = CGSize(width: containerWidth, height: 60.0)
+        let itemWidth = (containerWidth - (3 * self.minimumInteritemSpacing)) / 3.0
+        let size = CGSize(width: itemWidth, height: itemWidth)
         return ASSizeRange(min: size, max: size)
     }
+    
 }
 

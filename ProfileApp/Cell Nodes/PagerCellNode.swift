@@ -1,21 +1,13 @@
-//
-//  PagerCellNode.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
 class PagerCellNode: ASCellNode {
     
-    var vc: ASDKViewController<ASCollectionNode>!
+    let vc: ASDKViewController<ASCollectionNode>
     
     init(vc: ASDKViewController<ASCollectionNode>) {
+        self.vc = vc
         super.init()
         automaticallyManagesSubnodes = true
-        
-        self.vc = vc
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

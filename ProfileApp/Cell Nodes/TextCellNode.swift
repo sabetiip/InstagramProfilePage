@@ -1,14 +1,13 @@
 //
-//  PostNode.swift
-//  ProfileApp
+//  TextNode.swift
+//  ExploreLayout
 //
-//  Created by Somaye Sabeti on 8/30/22.
+//  Created by Somaye Sabeti on 3/1/21.
 //
 
 import AsyncDisplayKit
-import UIKit
 
-class PostCellNode: ASCellNode {
+class TextCellNode: ASCellNode {
     
     var labelNode = ASTextNode()
     
@@ -20,12 +19,13 @@ class PostCellNode: ASCellNode {
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
-        labelNode.attributedText = NSAttributedString(string: text, attributes: [.font : UIFont.boldSystemFont(ofSize: 50)])
+        labelNode.attributedText = NSAttributedString(string: text, attributes: [.font : UIFont.boldSystemFont(ofSize: 40)])
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let spec = ASInsetLayoutSpec(insets: .zero, child: labelNode)
-        let centerSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: spec)
-        return centerSpec
+        let wrapper = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: spec)
+        return wrapper
     }
 }
+

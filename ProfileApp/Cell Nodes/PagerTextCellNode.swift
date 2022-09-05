@@ -1,10 +1,3 @@
-//
-//  HeaderTextNode.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
 class PagerTextCellNode: ASCellNode {
@@ -19,7 +12,7 @@ class PagerTextCellNode: ASCellNode {
 
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
-        labelNode.attributedText = NSAttributedString(string: text, attributes: [.font : UIFont.boldSystemFont(ofSize: 50)])
+        labelNode.attributedText = NSAttributedString(string: text, attributes: [.font : UIFont.boldSystemFont(ofSize: 40)])
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

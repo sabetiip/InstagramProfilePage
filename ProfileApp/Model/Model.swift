@@ -7,6 +7,9 @@
 
 import IGListKit
 
+let headerCellHeight = 60.0
+let pagerCollectionHeight = 60.0
+
 var headerCurrentId: Int = 0
 var headerSectionCurrentId: Int = 0
 var pageCurrentId: Int = 0
@@ -17,6 +20,8 @@ var postSectionCurrentId: Int = 0
 protocol UniquableModel: ListDiffable {
     var id : Int { get }
 }
+
+//MARK: - Header Date Model
 
 class HeaderSectionModel: NSObject, UniquableModel {
     let id : Int
@@ -38,6 +43,20 @@ class HeaderModel: NSObject, UniquableModel {
     }
 }
 
+//MARK: - Bottom Date Model
+
+class BottomViewDataModel: NSObject {
+    private var identifier: String = UUID().uuidString
+    private(set) var pageSectionModel: PageSectionModel
+    private(set) var postSectionModels: [PostSectionModel]
+
+    init(pageSectionModel: PageSectionModel, postSectionModels: [PostSectionModel]) {
+        self.pageSectionModel = pageSectionModel
+        self.postSectionModels = postSectionModels
+    }
+}
+
+//MARK: - Bottom Page Date Model
 class PageSectionModel: NSObject, UniquableModel {
     let id : Int
     let pages: [PageModel]
@@ -58,6 +77,7 @@ class PageModel: NSObject, UniquableModel {
     }
 }
 
+//MARK: - Bottom Post Date Model
 class PostSectionModel: NSObject, UniquableModel {
     let id : Int
     let posts: [PostModel]
@@ -77,3 +97,29 @@ class PostModel: NSObject, UniquableModel {
         postCurrentId += 1
     }
 }
+
+//MARK: - Static Data
+
+enum StaticData {
+    private static func getPostModels(count: Int) -> [PostModel] {
+        var posts = [PostModel]()
+        for _ in 1 ... count {
+            posts.append(PostModel())
+        }
+        return posts
+    }
+    
+    static let headerDataModel = HeaderSectionModel(headers: [HeaderModel(), HeaderModel(), HeaderModel()])
+
+    static let bottomDataModel = BottomViewDataModel(pageSectionModel: PageSectionModel(pages: [PageModel(),
+                                                                                         PageModel(),
+                                                                                         PageModel(),
+                                                                                         PageModel(),
+                                                                                         PageModel()]),
+                                              postSectionModels: [PostSectionModel(posts: getPostModels(count: 5)),
+                                                                  PostSectionModel(posts: getPostModels(count: 15)),
+                                                                  PostSectionModel(posts: getPostModels(count: 30)),
+                                                                  PostSectionModel(posts: getPostModels(count: 60)),
+                                                                  PostSectionModel(posts: getPostModels(count: 90))])
+}
+

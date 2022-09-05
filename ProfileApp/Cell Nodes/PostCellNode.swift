@@ -1,13 +1,6 @@
-//
-//  TextNode.swift
-//  ExploreLayout
-//
-//  Created by Somaye Sabeti on 3/1/21.
-//
-
 import AsyncDisplayKit
 
-class TextCellNode: ASCellNode {
+class PostCellNode: ASCellNode {
     
     var labelNode = ASTextNode()
     
@@ -24,8 +17,7 @@ class TextCellNode: ASCellNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let spec = ASInsetLayoutSpec(insets: .zero, child: labelNode)
-        let wrapper = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: spec)
-        return wrapper
+        let centerSpec = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: spec)
+        return centerSpec
     }
 }
-

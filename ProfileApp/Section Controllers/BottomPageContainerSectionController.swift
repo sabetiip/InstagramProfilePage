@@ -1,16 +1,14 @@
-//
-//  BottomPageContainerSectionController.swift
-//  ProfileApp
-//
-//  Created by Somaye Sabeti on 3/8/21.
-//
-
 import AsyncDisplayKit
 
 final class BottomPageContainerSectionController: ListSectionController, ASSectionController {
     
+    let selectPage: ((Int) -> ())?
+    init(selectPage: ((Int) -> ())? = nil) {
+        self.selectPage = selectPage
+        super.init()
+    }
+    
     var object: PageSectionModel?
-    var selectItem: ((Int) -> ())?
     
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         let id = object?.pages[index].id ?? -1
@@ -28,7 +26,7 @@ final class BottomPageContainerSectionController: ListSectionController, ASSecti
     }
     
     override func didSelectItem(at index: Int) {
-        self.selectItem?(index)
+        self.selectPage?(index)
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
